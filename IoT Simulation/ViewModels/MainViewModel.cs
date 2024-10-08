@@ -1,12 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using IoT_Simulation.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace IoT_Simulation.ViewModels
@@ -57,6 +52,7 @@ namespace IoT_Simulation.ViewModels
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
+
 		protected void OnPropertyChanged([CallerMemberName] string name = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -83,8 +79,24 @@ namespace IoT_Simulation.ViewModels
 			OnPropertyChanged(nameof(IsFanOn));
 		}
 
+		private ICommand _openSettingsCommand;
+		public ICommand OpenSettingsCommand
+		{
+			get
+			{
+				if (_openSettingsCommand == null)
+				{
+					_openSettingsCommand = new RelayCommand(param => OpenSettings());
+
+				}
+				return _openSettingsCommand;
+			}
+		}
+
+		private void OpenSettings()
+		{
+			SettingsWindow settingsWindow = new SettingsWindow();
+			settingsWindow.ShowDialog();
+		}
 	}
 }
-
-
-
