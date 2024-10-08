@@ -80,7 +80,9 @@ namespace IoT_Simulation.ViewModels
 		private void ToggleFan()
 		{
 			IsFanOn = !IsFanOn;
+			OnPropertyChanged(nameof(IsFanOn));
 		}
+
 	}
 }
 
