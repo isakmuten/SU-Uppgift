@@ -21,6 +21,7 @@ namespace IoT_Simulation
 	/// </summary>
 	public partial class SettingsWindow : Window
 	{
+		
 		public SettingsWindow()
 		{
 			InitializeComponent();
@@ -35,6 +36,8 @@ namespace IoT_Simulation
 			Properties.Settings.Default.DeviceId = DeviceIdTextBox.Text;
 
 			Properties.Settings.Default.Save();
+
+			IoTDevice.InitializeClient();
 
 			this.Close();
 		}

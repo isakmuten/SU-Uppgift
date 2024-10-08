@@ -27,7 +27,7 @@ namespace IoT_Simulation
 		{
 			InitializeComponent();
 
-			IoTDevice.InitializeClient();
+			//IoTDevice.InitializeClient();
 		}
 		private async void ToggleButton_Click(object sender, RoutedEventArgs e)
 		{
