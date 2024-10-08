@@ -17,5 +17,4 @@ namespace IoT_Simulation.Models
 			Speed = 0;
 		}
 	}
-
 }

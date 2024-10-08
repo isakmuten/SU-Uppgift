@@ -2,13 +2,34 @@
 using IoT_Simulation.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace IoT_Simulation.ViewModels
 {
 	public class MainViewModel : INotifyPropertyChanged
 	{
+		private readonly IoTDeviceService _iotDeviceService;
 		private FanModel _fan;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		private ICommand _toggleFanCommand;
+		private ICommand _openSettingsCommand;
+		
+		private bool _isFanOn;
+		private double _fanSpeed;
+
+		public MainViewModel()
+		{
+			_iotDeviceService = new IoTDeviceService(Properties.Settings.Default.ConnectionString);
+			Fan = new FanModel
+			{
+				IsOn = false,
+				Speed = 1  
+			};
+		}
+
 		public FanModel Fan
 		{
 			get => _fan;
@@ -26,8 +47,14 @@ namespace IoT_Simulation.ViewModels
 			{
 				Fan.IsOn = value;
 				OnPropertyChanged(nameof(IsFanOn));
+				OnPropertyChanged(nameof(ButtonText));
 				OnPropertyChanged(nameof(StatusText));
 			}
+		}
+
+		public string ButtonText
+		{
+			get => IsFanOn ? "Turn Off" : "Turn On";
 		}
 
 		public double FanSpeed
@@ -38,6 +65,8 @@ namespace IoT_Simulation.ViewModels
 				Fan.Speed = value;
 				OnPropertyChanged(nameof(FanSpeed));
 				OnPropertyChanged(nameof(StatusText));
+
+				Task.Run(() => _iotDeviceService.ReportDeviceStateAsync(IsFanOn, FanSpeed));
 			}
 		}
 
@@ -45,20 +74,11 @@ namespace IoT_Simulation.ViewModels
 		{
 			get => IsFanOn ? $"Fan is On at speed {FanSpeed}" : "Fan is Off";
 		}
-
-		public MainViewModel()
-		{
-			Fan = new FanModel();
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		protected void OnPropertyChanged([CallerMemberName] string name = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
 
-		private ICommand _toggleFanCommand;
 		public ICommand ToggleFanCommand
 		{
 			get
@@ -77,9 +97,11 @@ namespace IoT_Simulation.ViewModels
 		{
 			IsFanOn = !IsFanOn;
 			OnPropertyChanged(nameof(IsFanOn));
+			OnPropertyChanged(nameof(ButtonText));
+
+			Task.Run(() => _iotDeviceService.ReportDeviceStateAsync(IsFanOn, FanSpeed));
 		}
 
-		private ICommand _openSettingsCommand;
 		public ICommand OpenSettingsCommand
 		{
 			get

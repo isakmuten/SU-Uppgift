@@ -6,11 +6,30 @@
         <local:MainViewModel />
     </Window.DataContext>
     <Grid>
-        <TextBlock Name="StatusTextBlock" Text="{Binding StatusText}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" FontSize="16"/>
+        <TextBlock Name="StatusTextBlock" 
+                   Text="{Binding StatusText}" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   Margin="0,20,0,0" 
+                   FontSize="16"/>
 
-        <Slider Name="SpeedSlider" Minimum="1" Maximum="3" Value="{Binding FanSpeed, Mode=TwoWay}" TickFrequency="1" IsSnapToTickEnabled="True" Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0"/>
+        <Slider Name="SpeedSlider" 
+                Minimum="1" Maximum="3" 
+                Value="{Binding FanSpeed, Mode=TwoWay}" 
+                TickFrequency="1" 
+                IsSnapToTickEnabled="True" 
+                Width="200" Height="50" 
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0"/>
 
-        <Button Name="ToggleButton" Content="Turn On" Command="{Binding ToggleFanCommand}" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Content="Settings" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Command="{Binding OpenSettingsCommand}"/>
+        <Button x:Name="ToggleButton" 
+                Content="{Binding ButtonText}" 
+                Command="{Binding ToggleFanCommand}" 
+                Width="100" Height="50" 
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Button Content="Settings" 
+                Width="100" Height="30" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" 
+                Margin="10" 
+                Command="{Binding OpenSettingsCommand}"/>
     </Grid>
 </Window>

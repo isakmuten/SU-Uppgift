@@ -183,6 +183,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\FanModel.cs" />
     <Compile Include="Models\IoTDevice.cs" />
+    <Compile Include="Services\IoTDeviceService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -233,8 +234,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Azure.Devices.Client;
+using IoT_Simulation.ViewModels;
+using IoT_Simulation.Models;
+
 
 namespace IoT_Simulation
 {
