@@ -21,6 +21,10 @@ namespace IoT_Simulation
 		public SettingsWindow()
 		{
 			InitializeComponent();
+
+			var viewModel = new SettingsViewModel();
+			viewModel.CloseAction = new Action(this.Close);
+			DataContext = viewModel;
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -6,7 +8,6 @@ namespace IoT_Simulation
 {
 	public class SettingsViewModel : INotifyPropertyChanged
 	{
-		// Property för ConnectionString
 		private string _connectionString;
 		public string ConnectionString
 		{
@@ -18,7 +19,6 @@ namespace IoT_Simulation
 			}
 		}
 
-		// Property för DeviceId
 		private string _deviceId;
 		public string DeviceId
 		{
@@ -30,25 +30,12 @@ namespace IoT_Simulation
 			}
 		}
 
-		// Command för att spara inställningar
-		public ICommand SaveCommand { get; }
+		public Action CloseAction { get; set; }
 
 		public SettingsViewModel()
 		{
-			// Ladda befintliga inställningar
 			ConnectionString = Properties.Settings.Default.ConnectionString;
 			DeviceId = Properties.Settings.Default.DeviceId;
-
-			// Skapa kommando för att spara inställningarna
-			SaveCommand = new RelayCommand(param => SaveSettings());
-		}
-
-		// Spara inställningar
-		private void SaveSettings()
-		{
-			Properties.Settings.Default.ConnectionString = ConnectionString;
-			Properties.Settings.Default.DeviceId = DeviceId;
-			Properties.Settings.Default.Save();
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -56,6 +43,27 @@ namespace IoT_Simulation
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 		}
-	}
 
+		private ICommand _saveCommand;
+		public ICommand SaveCommand
+		{
+			get
+			{
+				if (_saveCommand == null)
+				{
+					_saveCommand = new RelayCommand<object>(SaveSettings);
+				}
+				return _saveCommand;
+			}
+		}
+
+		private void SaveSettings(object parameter)
+		{
+			Properties.Settings.Default.ConnectionString = ConnectionString;
+			Properties.Settings.Default.DeviceId = DeviceId;
+			Properties.Settings.Default.Save();
+
+			CloseAction?.Invoke();
+		}
+	}
 }

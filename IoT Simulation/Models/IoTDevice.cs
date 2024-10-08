@@ -11,7 +11,6 @@ namespace IoT_Simulation
 		private static DeviceClient deviceClient;
 		private static string connectionString = Properties.Settings.Default.ConnectionString;
 
-		// Initiera klienten
 		public static void InitializeClient()
 		{
 			if (string.IsNullOrEmpty(connectionString))
@@ -23,8 +22,6 @@ namespace IoT_Simulation
 			deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Mqtt);
 		}
 
-
-		// Skicka telemetridata
 		public static async Task SendDeviceToCloudMessagesAsync(string message)
 		{
 			if (deviceClient == null)
