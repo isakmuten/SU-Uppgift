@@ -16,30 +16,12 @@ using Microsoft.Azure.Devices.Client;
 
 namespace IoT_Simulation
 {
-	/// <summary>
-	/// Interaction logic for SettingsWindow.xaml
-	/// </summary>
 	public partial class SettingsWindow : Window
 	{
-		
 		public SettingsWindow()
 		{
 			InitializeComponent();
-
-			ConnectionStringTextBox.Text = Properties.Settings.Default.ConnectionString;
-			DeviceIdTextBox.Text = Properties.Settings.Default.DeviceId;
-		}
-
-		private void SaveButton_Click(object sender, RoutedEventArgs e)
-		{
-			Properties.Settings.Default.ConnectionString = ConnectionStringTextBox.Text;
-			Properties.Settings.Default.DeviceId = DeviceIdTextBox.Text;
-
-			Properties.Settings.Default.Save();
-
-			IoTDevice.InitializeClient();
-
-			this.Close();
 		}
 	}
 }
+

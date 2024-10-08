@@ -39,11 +39,14 @@ namespace IoT_Simulation
 			{
 				ToggleButton.Content = "Turn Off";
 				statusMessage = $"Fan is On at speed {SpeedSlider.Value}";
+				StatusTextBlock.Text = statusMessage;
 			}
 			else
 			{
 				ToggleButton.Content = "Turn On";
 				statusMessage = "Fan is Off";
+				StatusTextBlock.Text = statusMessage;
+
 			}
 
 			await IoTDevice.SendDeviceToCloudMessagesAsync(statusMessage);
@@ -52,10 +55,15 @@ namespace IoT_Simulation
 		{
 			if (isFanOn)
 			{
-				string statusMessage = $"fan is On at speed {SpeedSlider.Value}";
+				string statusMessage = $"Fan is On at speed {SpeedSlider.Value}";
 				StatusTextBlock.Text = statusMessage;
 
 				await IoTDevice.SendDeviceToCloudMessagesAsync(statusMessage);
+			}
+			else
+			{
+				StatusTextBlock.Text = "Fan is Off";
+
 			}
 		}
 		private void SettingsButton_Click(object sender, RoutedEventArgs e)
